@@ -1,0 +1,126 @@
+🚀 1️⃣ Complete Backend Workflow (Your Project)
+
+Let’s understand what actually happens step-by-step when frontend sends a request.
+
+🔐 AUTH FLOW (Signup → Login → Token)
+🟢 Step 1: Signup
+
+Frontend → POST /signup
+
+👉 Controller:
+
+Validate data
+
+Hash password
+
+Save user in DB
+
+Send response
+
+🟢 Step 2: Login
+
+Frontend → POST /login
+
+👉 Controller:
+
+Check email
+
+Compare password
+
+Generate JWT token
+
+Send token to frontend
+
+Frontend stores token (localStorage)
+
+📌 TASK FLOW (Protected Routes)
+
+When user creates task:
+
+Frontend sends:
+
+Authorization: Bearer <token>
+🛡 Step 3: Middleware (protect)
+
+Before controller runs:
+
+Get token from header
+
+Verify token using jwt
+
+Decode user id
+
+Attach to request:
+
+req.userId = decoded.id
+
+Then → next()
+
+🟢 Step 4: Controller Runs
+
+Example: createTask
+
+Use req.userId
+
+Save task with user id
+
+Send response
+
+🔄 Full Flow Diagram
+Frontend
+   ↓
+Route
+   ↓
+Middleware (verify token)
+   ↓
+Controller
+   ↓
+Model (Database)
+   ↓
+Response
+   ↓
+Frontend
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+🚀 FRONTEND WORKFLOW (Big Picture)
+
+Your frontend will follow this structure:
+
+React App
+   ↓
+Pages (Login / Signup / Dashboard)
+   ↓
+API Calls (Axios / fetch)
+   ↓
+Send Token in Headers
+   ↓
+Backend
+
+
+🔐 2️⃣ Authentication Flow (Frontend Side)
+🟢 Login Flow
+
+User enters email & password
+
+Send POST request to /login
+
+Receive token
+
+Save token in localStorage
+
+🟢signup Flow
+
+user enters name email password
+
+send post request to /signup
+
+🟢createTask
+
+user enters title,description,due date,priority
+
+get token from localStorage
+
+put it in headers:{Authentication: `Bearer ${token} }
+
+send post request to /createTask
